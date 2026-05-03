@@ -1,0 +1,11 @@
+ShortRead
+dada2
+phyloseq
+DESeq2
+microbiome
+Biostrings
+DECIPHER
+GenomicRanges
+IRanges
+S4Vectors
+ComplexHeatmap

@@ -1,0 +1,29 @@
+name: Test Install
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test-install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+
+      - name: Install apt dependencies
+        run: bash scripts/install_system_ubuntu.sh
+
+      # This currently exercises the full package lists. If CI becomes too slow,
+      # replace these inputs with a smaller test list while keeping install.R
+      # and check_install.R behavior unchanged.
+      - name: Install R packages
+        run: Rscript install.R
+
+      - name: Check R packages
+        run: Rscript check_install.R
