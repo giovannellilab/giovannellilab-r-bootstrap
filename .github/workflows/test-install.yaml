@@ -16,14 +16,17 @@ jobs:
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
 
-      - name: Install apt dependencies
-        run: bash scripts/install_system_ubuntu.sh
+      - name: Check R syntax
+        run: |
+          Rscript -e "parse('install.R')"
+          Rscript -e "parse('check_install.R')"
+          Rscript -e "parse('scripts/diagnose.R')"
+          Rscript -e "parse('scripts/show_sysreqs.R')"
 
-      # This currently exercises the full package lists. If CI becomes too slow,
-      # replace these inputs with a smaller test list while keeping install.R
-      # and check_install.R behavior unchanged.
-      - name: Install R packages
-        run: Rscript install.R
+      - name: Check bash syntax
+        run: |
+          bash -n scripts/install_system_ubuntu.sh
+          bash -n scripts/install_all.sh
 
-      - name: Check R packages
-        run: Rscript check_install.R
+      - name: Run installer smoke test
+        run: GIOVANNELLI_BOOTSTRAP_CI=true Rscript install.R

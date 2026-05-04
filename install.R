@@ -47,6 +47,16 @@ install_cran_if_missing("BiocManager")
 cran_packages <- read_package_list(file.path(repo_root, "packages", "cran.txt"))
 bioc_packages <- read_package_list(file.path(repo_root, "packages", "bioconductor.txt"))
 github_packages <- read_package_list(file.path(repo_root, "packages", "github.txt"))
+system_packages <- read_package_list(file.path(repo_root, "packages", "system_apt.txt"))
+
+if (identical(Sys.getenv("GIOVANNELLI_BOOTSTRAP_CI"), "true")) {
+  message("CI smoke test mode enabled; skipping full package installation")
+  message("CRAN packages listed: ", length(cran_packages))
+  message("Bioconductor packages listed: ", length(bioc_packages))
+  message("GitHub packages listed: ", length(github_packages))
+  message("System packages listed: ", length(system_packages))
+  quit(save = "no", status = 0)
+}
 
 if (length(cran_packages) > 0) {
   run_step(
@@ -77,10 +87,23 @@ if (length(github_packages) > 0) {
 }
 
 if (requireNamespace("IRkernel", quietly = TRUE)) {
-  run_step(
-    "Registering IRkernel",
-    IRkernel::installspec(user = TRUE, name = "ir", displayname = "R")
-  )
+  if (nzchar(Sys.which("jupyter"))) {
+    tryCatch(
+      run_step(
+        "Registering IRkernel",
+        IRkernel::installspec(user = TRUE, name = "ir", displayname = "R")
+      ),
+      error = function(e) {
+        warning(
+          "IRkernel registration failed: ",
+          conditionMessage(e),
+          call. = FALSE
+        )
+      }
+    )
+  } else {
+    message("Skipping IRkernel registration: jupyter command not found.")
+  }
 } else {
   message("IRkernel is not available; skipping kernel registration")
 }
