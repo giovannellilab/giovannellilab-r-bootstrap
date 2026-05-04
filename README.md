@@ -1,7 +1,5 @@
 # Giovannelli Lab R Bootstrap package to get your fresh Ubuntu install ready for analysis
 
-# Sampling deeply sourced seeps around the golden ring, Iceland: ISL23 expedition report
-
 [![forthebadge](https://forthebadge.com/images/badges/cc-by.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/powered-by-coffee.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/built-with-science.svg)](https://forthebadge.com)
