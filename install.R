@@ -50,12 +50,20 @@ github_packages <- read_package_list(file.path(repo_root, "packages", "github.tx
 system_packages <- read_package_list(file.path(repo_root, "packages", "system_apt.txt"))
 
 if (identical(Sys.getenv("GIOVANNELLI_BOOTSTRAP_CI"), "true")) {
-  message("CI smoke test mode enabled; skipping full package installation")
-  message("CRAN packages listed: ", length(cran_packages))
-  message("Bioconductor packages listed: ", length(bioc_packages))
-  message("GitHub packages listed: ", length(github_packages))
-  message("System packages listed: ", length(system_packages))
-  quit(save = "no", status = 0)
+  message("Running in CI smoke-test mode.")
+  message("Checking package list files only; not installing packages.")
+
+  cran_pkgs <- read_pkg_file("packages/cran.txt")
+  bioc_pkgs <- read_pkg_file("packages/bioconductor.txt")
+  github_pkgs <- read_pkg_file("packages/github.txt")
+  system_pkgs <- read_pkg_file("packages/system_apt.txt")
+
+  message("CRAN packages listed: ", length(cran_pkgs))
+  message("Bioconductor packages listed: ", length(bioc_pkgs))
+  message("GitHub packages listed: ", length(github_pkgs))
+  message("System packages listed: ", length(system_pkgs))
+
+  quit(status = 0)
 }
 
 if (length(cran_packages) > 0) {

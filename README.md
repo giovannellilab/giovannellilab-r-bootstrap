@@ -1,6 +1,21 @@
-# Giovannelli Lab R Bootstrap
+# Giovannelli Lab R Bootstrap package to get your fresh Ubuntu install ready for analysis
 
-Minimal bootstrap repository for installing the common global R package stack used by the Giovannelli Lab.
+# Sampling deeply sourced seeps around the golden ring, Iceland: ISL23 expedition report
+
+[![forthebadge](https://forthebadge.com/images/badges/cc-by.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/powered-by-coffee.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/built-with-science.svg)](https://forthebadge.com)
+
+[![forthebadge](https://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/0-percent-optimized.svg)](https://forthebadge.com)
+
+
+[![giovannellilab](https://img.shields.io/badge/BY-Giovannelli_Lab-blue)](http://dgiovannelli.github.io)
+[![made-with-Markdown](https://img.shields.io/badge/Coded%20in-R-red.svg)](https://www.r-project.org/)
+[![giovannellilab](https://img.shields.io/badge/MADE_BY-Donato_Giovannelli-orange)](https://github.com/dgiovannelli)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
+
+Minimal bootstrap repository for installing the common global R package stack used by the Giovannelli Lab. 
 
 This repository is intended for a fresh machine or shared lab environment where the base R ecosystem needs to be installed once:
 
@@ -10,7 +25,18 @@ cd giovannellilab-r-bootstrap
 bash scripts/install_all.sh
 ```
 
-It deliberately does not use Docker, `renv`, profiles, or a complex package manager. Individual research projects should use `renv` or another reproducibility mechanism inside their own project repositories. This bootstrap repository is for the shared global lab baseline.
+It deliberately does not use Docker, `renv`, profiles, or a complex package manager. Individual research projects should use `renv` or another reproducibility mechanism inside their own project repositories. This bootstrap repository is for the shared global lab baseline. The package should take care of dependencies (see [Debugging installation problems](#debugging-installation-problems)) but it requires you to have [Mamba](https://mamba.readthedocs.io/en/latest/installation/mamba-installation.html) (or equivalent) and [Jupyter](https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html) already installed.
+
+
+## Content
+
+- [Ubuntu/Debian Full Install](#ubuntudebian-full-install)
+- [R-Only Install](#r-only-install)
+- [Check Installation](#check-installation)
+- [Debugging installation problems](#debugging-installation-problems)
+- [Diagnose](#diagnose)
+- [Package Lists](#package-lists)
+
 
 ## Ubuntu/Debian Full Install
 
@@ -28,6 +54,7 @@ Rscript install.R
 Rscript check_install.R
 ```
 
+
 ## R-Only Install
 
 If system libraries are already installed, install only the R packages:
@@ -44,6 +71,7 @@ Packages are read from:
 
 Empty lines and lines starting with `#` are ignored.
 
+
 ## Check Installation
 
 Verify that the listed CRAN and Bioconductor packages can be loaded:
@@ -53,6 +81,7 @@ Rscript check_install.R
 ```
 
 The check prints an installed/missing table and exits with status 1 if anything is missing.
+
 
 ## Debugging installation problems
 
@@ -168,6 +197,7 @@ After confirming the missing system dependency, add it to `packages/system_apt.t
 ```bash
 git add packages/system_apt.txt
 git commit -m "Add missing apt dependency for sf"
+
 ```
 
 ## Diagnose
@@ -177,6 +207,7 @@ Print R version, library paths, session information, Jupyter kernels, and key pa
 ```bash
 Rscript scripts/diagnose.R
 ```
+
 
 ## Package Lists
 
